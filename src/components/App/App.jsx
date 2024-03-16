@@ -19,14 +19,14 @@ function App() {
 		}
 	});
 
+	useEffect(() => {
+		localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+	}, [feedbacks]);
+
 	const totalFeedback = Object.values(feedbacks).reduce(
 		(sum, feedback) => sum + feedback,
 		0,
 	);
-
-	useEffect(() => {
-		localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
-	}, [feedbacks]);
 
 	return (
 		<>

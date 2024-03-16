@@ -1,6 +1,6 @@
 const Feedback = ({ feedbacks, totalFeedback }) => {
   const { good, neutral, bad } = feedbacks;
-	const positvePercentage = totalFeedback ? Math.round(good/totalFeedback * 100) : 0;
+	const positiveFeedbackPercentage = totalFeedback ? Math.round(good/totalFeedback * 100) : 0;
 
   return (
     <div>
@@ -9,7 +9,7 @@ const Feedback = ({ feedbacks, totalFeedback }) => {
         <li>Neutral: {neutral}</li>
         <li>Bad: {bad}</li>
         <li>Total: {totalFeedback}</li>
-        <li>Positive: {positvePercentage}%</li>
+        <li>Positive: {positiveFeedbackPercentage}%</li>
       </ul>
     </div>
 )
