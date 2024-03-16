@@ -1,6 +1,5 @@
-const Options = ({ handleClicks, feedbacks }) => {
+const Options = ({ handleClicks, feedbacks, totalFeedback }) => {
 	const updateFeedback = (feedback) => {
-		console.log(feedback)
 		switch (feedback) {
 			case "good":
 				handleClicks({ ...feedbacks, good: feedbacks.good + 1 });
@@ -15,12 +14,15 @@ const Options = ({ handleClicks, feedbacks }) => {
 				throw new Error("feedback type not found");
 		}
 	};
+	const resetFeedback = () => {
+		handleClicks({...feedbacks, good: 0, neutral: 0, bad: 0});
+	}
 	return (
 		<div>
 			<button onClick={() => updateFeedback("good")}>Good</button>
 			<button onClick={() => updateFeedback("neutral")}>Neutral</button>
 			<button onClick={() => updateFeedback("bad")}>Bad</button>
-			{/* <button onClick={resetFeedbacks}>Reset</button> */}
+			{totalFeedback > 0 && <button onClick={resetFeedback}>Reset</button>}
 		</div>
 	);
 };
