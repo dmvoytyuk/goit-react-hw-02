@@ -63,11 +63,13 @@ function App() {
         totalFeedback={totalFeedback()}
         updateFeedback={updateFeedback}
       />
-      {totalFeedback(feedbacks) > 0 ? (
+      {totalFeedback() > 0 ? (
         <Feedback
           feedbacks={feedbacks}
           totalFeedback={totalFeedback()}
-          positiveFeedbackPercentage={positiveFeedbackPercentage(totalFeedback())}
+          positiveFeedbackPercentage={positiveFeedbackPercentage(
+            totalFeedback(),
+          )}
         />
       ) : (
         <Notification />
