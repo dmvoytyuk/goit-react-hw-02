@@ -19,25 +19,57 @@ function App() {
     }
   });
 
+  const updateFeedback = (feedback) => {
+    switch (feedback) {
+      case "good":
+        setFeedback({ ...feedbacks, good: feedbacks.good + 1 });
+        break;
+      case "neutral":
+        setFeedback({ ...feedbacks, neutral: feedbacks.neutral + 1 });
+        break;
+      case "bad":
+        setFeedback({ ...feedbacks, bad: feedbacks.bad + 1 });
+        break;
+      case "reset":
+        setFeedback({ ...feedbacks, good: 0, neutral: 0, bad: 0 });
+        break;
+
+      default:
+        throw new Error("feedback type not found");
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
   }, [feedbacks]);
 
-  const totalFeedback = Object.values(feedbacks).reduce(
-    (sum, feedback) => sum + feedback,
-    0,
-  );
+  const totalFeedback = (feedbacks) => {
+    return Object.values(feedbacks).reduce(
+      (sum, feedback) => sum + feedback,
+      0,
+    );
+  };
+
+  const positiveFeedbackPercentage = (feedbacks, totalFeedback) => {
+    return totalFeedback > 0
+      ? Math.round(((feedbacks.good + feedbacks.neutral) / totalFeedback) * 100)
+      : 0;
+  };
 
   return (
     <>
       <Description />
       <Options
-        handleClicks={setFeedback}
         feedbacks={feedbacks}
         totalFeedback={totalFeedback}
+        updateFeedback={updateFeedback}
       />
-      {totalFeedback && totalFeedback > 0 ? (
-        <Feedback {...feedbacks} totalFeedback={totalFeedback} />
+      {totalFeedback(feedbacks) > 0 ? (
+        <Feedback
+          feedbacks={feedbacks}
+          totalFeedback={totalFeedback}
+          positiveFeedbackPercentage={positiveFeedbackPercentage}
+        />
       ) : (
         <Notification />
       )}
