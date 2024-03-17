@@ -43,14 +43,14 @@ function App() {
     localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
   }, [feedbacks]);
 
-  const totalFeedback = (feedbacks) => {
+  const totalFeedback = () => {
     return Object.values(feedbacks).reduce(
       (sum, feedback) => sum + feedback,
       0,
     );
   };
 
-  const positiveFeedbackPercentage = (feedbacks, totalFeedback) => {
+  const positiveFeedbackPercentage = (totalFeedback) => {
     return totalFeedback > 0
       ? Math.round(((feedbacks.good + feedbacks.neutral) / totalFeedback) * 100)
       : 0;
@@ -60,15 +60,14 @@ function App() {
     <>
       <Description />
       <Options
-        feedbacks={feedbacks}
-        totalFeedback={totalFeedback}
+        totalFeedback={totalFeedback()}
         updateFeedback={updateFeedback}
       />
       {totalFeedback(feedbacks) > 0 ? (
         <Feedback
           feedbacks={feedbacks}
-          totalFeedback={totalFeedback}
-          positiveFeedbackPercentage={positiveFeedbackPercentage}
+          totalFeedback={totalFeedback()}
+          positiveFeedbackPercentage={positiveFeedbackPercentage(totalFeedback())}
         />
       ) : (
         <Notification />
