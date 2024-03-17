@@ -1,6 +1,4 @@
-const Feedback = ({ feedbacks, totalFeedback, positiveFeedbackPercentage}) => {
-
-
+const Feedback = ({ feedbacks, totalFeedback, positiveFeedbackPercentage }) => {
   return (
     <div>
       <ul>
@@ -11,7 +9,7 @@ const Feedback = ({ feedbacks, totalFeedback, positiveFeedbackPercentage}) => {
         <li>Positive: {positiveFeedbackPercentage}%</li>
       </ul>
     </div>
-)
-}
+  );
+};
 
 export default Feedback;
